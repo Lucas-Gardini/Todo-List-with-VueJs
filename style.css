@@ -1,0 +1,43 @@
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #181818;
+	overflow: hidden;
+}
+
+#main {
+	position: absolute;
+	min-width: 100%;
+	min-height: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	display: grid;
+	place-items: center;
+}
+
+#list {
+	background-color: whitesmoke;
+	padding: 20px;
+}
+
+#list form {
+	margin-bottom: 5vh;
+}
+
+.hidden {
+	display: none;
+}
+
+.visible {
+	animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+	0% {
+		display: grid;
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

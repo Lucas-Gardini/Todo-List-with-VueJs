@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="preload" href="style.css" as="style" />
+		<link rel="stylesheet" href="style.css" />
+		<title>TODO list with vue</title>
+	</head>
+	<body>
+		<div id="main">
+			<div id="list">
+				<h1>{{title}}</h1>
+				<div v-for="(x, y) in todo_items" id="items">
+					<label>{{x}}</label>
+					<input type="checkbox" />
+					<button @click="deleteItem(y)">Delete</button>
+				</div>
+				<form :class="form_class">
+					<input v-model="list_item_raw" type="text" />
+					<button @click.prevent="addItem('add')">done</button>
+				</form>
+				<button @click.prevent="addItem('toogle')">{{addItemTooglerText}}</button>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+		<script type="text/javascript">
+			const vue = new Vue({
+				el: "#main",
+				data() {
+					return {
+						title: "TODO-LIST with Vue",
+						todo_items: [],
+						form_class: "hidden",
+						addItemTooglerText: "add",
+						list_item_raw: "",
+					};
+				},
+				methods: {
+					addItem(method) {
+						switch (method) {
+							case "toogle":
+								if (this.addItemTooglerText == "close") {
+									this.addItemTooglerText = "add";
+									this.form_class = "hidden";
+								} else {
+									this.addItemTooglerText = "close";
+									this.form_class = "visible";
+								}
+								break;
+							case "add":
+								let todo_items = this.todo_items;
+								todo_items.push(this.list_item_raw);
+								this.list_item_raw = "";
+								todo_items = JSON.stringify(todo_items);
+								localStorage.setItem("todo_items", todo_items);
+								break;
+						}
+					},
+					deleteItem(item) {
+						let todo_items = this.todo_items;
+						todo_items.splice(item, 1);
+						todo_items = JSON.stringify(todo_items);
+						localStorage.setItem("todo_items", todo_items);
+					},
+				},
+				beforeMount() {
+					this.todo_items =
+						JSON.parse(localStorage.getItem("todo_items")) === null
+							? []
+							: JSON.parse(localStorage.getItem("todo_items"));
+				},
+			});
+		</script>
+	</body>
+</html>
