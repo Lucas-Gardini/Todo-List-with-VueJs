@@ -41,3 +41,19 @@ body {
 		opacity: 1;
 	}
 }
+
+button {
+	border-radius: 5px;
+	padding: 5px;
+	border: rgba(128, 128, 128, 0.274);
+}
+
+.add {
+	background-color: springgreen;
+	color: #181818;
+}
+
+.rmv {
+	background-color: tomato;
+	color: #181818;
+}
